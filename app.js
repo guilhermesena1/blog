@@ -1,9 +1,9 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
 
 // view engine setup
@@ -17,11 +17,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // main page
-var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
 // blog posts
-var postsRouter = require('./routes/posts');
+const postsRouter = require('./routes/posts');
 app.use('/posts', postsRouter);
 
 // catch 404 and forward to error handler
