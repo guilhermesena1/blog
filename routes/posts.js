@@ -10,7 +10,6 @@ router.get('/', async function(req, res, next) {
          posts = response.data;
        });
   data = {title : 'the posts', posts : posts}
-  console.log(data);
   res.render('posts', data);
 });
 
