@@ -1,12 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title> <%= title %> </title>
-</head>
-<body>
+<%- include('./partials/header.ejs') %>
+<div class="accordion" id="posts-accordion">
   <% posts.forEach((post) => { %>
-    <h1> <%= post.title %></h1>
-    <%= post.post %>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading<%= post.post_id %>">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= post.post_id %>" aria-expanded="false" aria-controls="collapse<%= post.post_id %>">
+        <%= post.title %>
+      </button>
+    </h2>
+    <div id="collapse<%= post.post_id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= post.post_id %>" data-bs-parent="#posts-accordion">
+      <div class="accordion-body">
+        <%= post.post %>
+      </div>
+    </div>
+  </div>
   <% }) %>
-</body>
-</html>
+  </div>
+
+<%- include('./partials/footer.ejs') %>
+
