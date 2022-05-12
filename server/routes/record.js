@@ -15,7 +15,6 @@ recordRoutes.route("/posts").get(async function (req, res) {
   dbConnect
     .collection('posts')
     .find({})
-    .limit(50)
     .toArray(function(err, result) {
       if (err) res.status(400).send("Error fetching list");
       else res.json(result);
