@@ -24,6 +24,11 @@ app.use('/', indexRouter);
 const postsRouter = require('./routes/posts');
 app.use('/posts', postsRouter);
 
+// GEO
+const geoRouter = require('./routes/geo');
+app.use('/geo', geoRouter);
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

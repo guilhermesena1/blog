@@ -1,0 +1,10 @@
+<%- include('./partials/header.ejs') %>
+Number of entries: <%= ret.Count %>
+
+
+<ul>
+ <% ret.IdList[0].Id.forEach((id) => { %>
+   <li> <a href="<%= id %>"><%= id %></a></li>
+ <% }) %>
+</ul>
+<%- include('./partials/footer.ejs') %>
