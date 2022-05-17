@@ -1,5 +1,11 @@
 <%- include('./partials/header.ejs') %>
-<h1>Query results for <%= id %></h1>
+<h3>Query results for <%= id %></h3>
+
+<br /><br />
+<%= ret.EXPERIMENT[0].TITLE %>
+<br /><br />
+<%=
+ret.EXPERIMENT[0].DESIGN[0].LIBRARY_DESCRIPTOR[0].LIBRARY_CONSTRUCTION_PROTOCOL %>
 
 
 <%- include('./partials/footer.ejs') %>
