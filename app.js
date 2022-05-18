@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "./geo.env" });
 const express = require('express');
 const app = express();
 

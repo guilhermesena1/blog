@@ -1,10 +1,64 @@
 <%- include('./partials/header.ejs') %>
-Number of entries: <%= ret.Count %>
+Number of entries: <b><%= search.Count %></b><br />
 
+<% var the_ids = search.IdList[0].Id %>
+Search size: <b><%= the_ids.length %></b><br />
+Fetch size: <b><%= fetch.length %></b> (should be the same as search
+size)
 
-<ul>
- <% ret.IdList[0].Id.forEach((id) => { %>
-   <li> <a href="<%= id %>"><%= id %></a></li>
- <% }) %>
-</ul>
+<br /><br />
+
+<table class="table table-striped table-bordered table-sm table-hover"
+cellspacing="0" width="100%" id="geoDatasets">
+  <thead>
+    <th class="th-sm" style="cursor:pointer;" scope="col">ID</th>
+    <th class="th-sm" style="cursor:pointer;" scope="col">accession</th>
+    <th class="th-sm" style="cursor:pointer;" scope="col">title</th>
+    <th class="th-sm" style="cursor:pointer;" scope="col">sequencer</th>
+    <th class="th-sm" style="cursor:pointer;" scope="col">species</th>
+  </thead>
+  <tbody>
+    <% for (var i = 0; i < fetch.length; ++i) { %>
+      <tr>
+        <!-- ID  -->
+        <th scope="row"> <a href="/geo/<%= the_ids[i] %>"><%=the_ids[i] %></th>
+        <!-- accession -->
+        <td><%= fetch[i].EXPERIMENT[0].$.accession %></td>
+        <!--  title -->
+        <td><%= fetch[i].Pool[0].Member[0].$.sample_title %></td>
+        <!--  sequencer -->
+        <td><%= fetch[i].EXPERIMENT[0].PLATFORM[0].ILLUMINA[0].INSTRUMENT_MODEL %></td>
+        <!--  species -->
+        <td><%= fetch[i].Pool[0].Member[0].$.organism %></td>
+      </tr>
+    <% } %>
+
+  </tbody>
+</table>
+<script type="text/javascript">
+$('th').click(function() {
+  var table = $(this).parents('table').eq(0)
+  var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()))
+  this.asc = !this.asc
+  if (!this.asc) {
+    rows = rows.reverse()
+  }
+  for (var i = 0; i < rows.length; i++) {
+    table.append(rows[i])
+  }
+})
+
+function comparer(index) {
+  return function(a, b) {
+    var valA = getCellValue(a, index);
+    var valB = getCellValue(b, index)
+    return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
+  }
+}
+function getCellValue(row, index) {
+  return $(row).children('td').eq(index).text()
+}
+
+</script>
 <%- include('./partials/footer.ejs') %>
+
