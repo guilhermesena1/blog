@@ -21,7 +21,7 @@ cellspacing="0" width="100%" id="geoDatasets">
     <% for (var i = 0; i < fetch.length; ++i) { %>
       <tr>
         <!-- ID  -->
-        <th scope="row"> <a href="/geo/<%= the_ids[i] %>"><%=the_ids[i] %></th>
+        <td scope="row"> <a href="/geo/<%= the_ids[i] %>"><%=the_ids[i] %></td>
         <!-- accession -->
         <td>
         <% if (typeof fetch[i].EXPERIMENT !== "undefined") { %>

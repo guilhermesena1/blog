@@ -1,10 +1,16 @@
-require("dotenv").config({ path: "./geo.env" });
+const dotenv = require("dotenv");
+const dotenvExpand = require('dotenv-expand');
+
 const express = require('express');
 const app = express();
 
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+
+// environment vars
+const myEnv = dotenv.config({ path: "./geo.env" });
+dotenvExpand.expand(myEnv);
 
 
 // view engine setup
