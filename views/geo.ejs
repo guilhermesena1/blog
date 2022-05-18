@@ -13,7 +13,7 @@ cellspacing="0" width="100%" id="geoDatasets">
   <thead>
     <th class="th-sm" style="cursor:pointer;" scope="col">ID</th>
     <th class="th-sm" style="cursor:pointer;" scope="col">accession</th>
-    <th class="th-sm" style="cursor:pointer;" scope="col">title</th>
+    <th class="th-sm w-25" style="cursor:pointer;" scope="col">title</th>
     <th class="th-sm" style="cursor:pointer;" scope="col">sequencer</th>
     <th class="th-sm" style="cursor:pointer;" scope="col">species</th>
   </thead>
@@ -23,13 +23,45 @@ cellspacing="0" width="100%" id="geoDatasets">
         <!-- ID  -->
         <th scope="row"> <a href="/geo/<%= the_ids[i] %>"><%=the_ids[i] %></th>
         <!-- accession -->
-        <td><%= fetch[i].EXPERIMENT[0].$.accession %></td>
+        <td>
+        <% if (typeof fetch[i].EXPERIMENT !== "undefined") { %>
+          <% var the_accession = fetch[i].EXPERIMENT[0].$.accession %>
+          <a href="https://www.ncbi.nlm.nih.gov/sra/?term=<%= the_accession %>"  target="_blank">
+            <%= the_accession %>
+          </a>
+        <% } else { %>
+          NO ACCESSION FOUND!
+        <% } %>
+        </td>
         <!--  title -->
-        <td><%= fetch[i].Pool[0].Member[0].$.sample_title %></td>
+        <td>
+        <% if (typeof fetch[i].Pool !== "undefined" &&
+               typeof fetch[i].Pool[0].Member !== "undefined") { %>
+          <%= fetch[i].Pool[0].Member[0].$.sample_title %>
+        <% } else { %>
+          NO TITLE FOUND!
+        <% } %>
+        </td>
         <!--  sequencer -->
-        <td><%= fetch[i].EXPERIMENT[0].PLATFORM[0].ILLUMINA[0].INSTRUMENT_MODEL %></td>
+        <td>
+        <% if (typeof fetch[i].EXPERIMENT !== "undefined" &&
+               typeof fetch[i].EXPERIMENT[0].PLATFORM !==  "undefined" &&
+               typeof fetch[i].EXPERIMENT[0].PLATFORM[0].ILLUMINA !== "undefined") { %>
+          <%= fetch[i].EXPERIMENT[0].PLATFORM[0].ILLUMINA[0].INSTRUMENT_MODEL %>
+        <% } else { %>
+          NO INSTRUMENT FOUND!
+        <% } %>
+        </td>
         <!--  species -->
-        <td><%= fetch[i].Pool[0].Member[0].$.organism %></td>
+        <td>
+        <% if (typeof fetch[i].Pool !== "undefined" &&
+               typeof fetch[i].Pool[0].Member !== "undefined") { %>
+          <% var the_organism = fetch[i].Pool[0].Member[0].$.organism %>
+          <a href="https://duckduckgo.com/?q=<%= the_organism %>" target="_blank"><%= the_organism %></a>
+        <% } else { %>
+          NO SPECIES FOUND!
+        <% } %>
+        </td>
       </tr>
     <% } %>
 
