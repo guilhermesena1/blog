@@ -26,10 +26,6 @@ router.get('/:page', async function(req, res, next) {
   var ids_start = Math.min(the_page*num_elems_per_page, the_ids.length - 1);
   var ids_end = Math.min((the_page + 1)*num_elems_per_page, the_ids.length);
 
-  console.log('page: ' + the_page);
-  console.log('ids start: ' + ids_start);
-  console.log('ids end: ' + ids_end);
-
   var fetch_ids = the_ids.slice(ids_start, ids_end).join(',');
   var fetch = [];
 
@@ -42,9 +38,6 @@ router.get('/:page', async function(req, res, next) {
 
 
   num_pages = Math.ceil(the_ids.length/num_elems_per_page);
-  console.log(the_ids.length);
-  console.log(num_elems_per_page);
-  console.log(num_pages);
   data = {
            title : 'GEO WGBS datasets',
            search : search,
@@ -55,7 +48,7 @@ router.get('/:page', async function(req, res, next) {
   res.render('geo', data);
 });
 
-router.get('/:sraId', async function(req, res, next) {
+router.get('/id/:sraId', async function(req, res, next) {
   var ret;
   var the_id = req.params.sraId;
 
