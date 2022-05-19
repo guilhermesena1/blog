@@ -1,12 +1,39 @@
 <%- include('./partials/header.ejs') %>
 Number of entries: <b><%= search.Count %></b><br />
-
-<% var the_ids = search.IdList[0].Id %>
-Search size: <b><%= the_ids.length %></b><br />
-Fetch size: <b><%= fetch.length %></b> (should be the same as search
-size)
+Number of pages: <b><%= num_pages %></b><br />
 
 <br /><br />
+
+<ul class="pagination">
+  <li class="page-item">
+    <a class="page-link" href="/geo/0">&laquo;</a>
+  </li>
+
+  <% if (the_page != 0) { %>
+  <li class="page-item">
+    <a class="page-link" href="/geo/<%= the_page - 1 %>">&lsaquo;</a>
+  </li>
+  <% } %>
+
+  <% var the_start = Math.max(the_page - 3, 0); %>
+  <% var the_end = Math.min(the_start + 20, num_pages); %>
+  <% for (var i = the_start; i < the_end; ++i) { %>
+    <% if (i == the_page) { %>
+      <li class="page-item active"><a class="page-link"  href="#"><%= i %></a></li>
+    <% } else { %>
+      <li class="page-item"><a class="page-link" href="/geo/<%=i %>"><%= i %></a></li>
+    <% } %>
+  <% } %>
+
+  <% if (the_page != num_pages) { %>
+  <li class="page-item">
+    <a class="page-link" href="/geo/<%= the_page + 1 %>">&rsaquo;</a>
+  </li>
+  <% } %>
+  <li class="page-item">
+    <a class="page-link" href="/geo/<%= num_pages %>">&raquo;</a>
+  </li>
+</ul>
 
 <table class="table table-striped table-bordered table-sm table-hover"
 cellspacing="0" width="100%" id="geoDatasets">
@@ -18,6 +45,7 @@ cellspacing="0" width="100%" id="geoDatasets">
     <th class="th-sm" style="cursor:pointer;" scope="col">species</th>
   </thead>
   <tbody>
+    <% var the_ids = search.IdList[0].Id %>
     <% for (var i = 0; i < fetch.length; ++i) { %>
       <tr>
         <!-- ID  -->
