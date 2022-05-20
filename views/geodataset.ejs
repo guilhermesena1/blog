@@ -3,18 +3,50 @@
 
 <br /><br />
 <h2><%= ret.EXPERIMENT[0].TITLE %></h2>
+GSE: <a
+href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=<%= GSE %>"
+target="_blank"><%= GSE %></a>
 
 <p><b>Library construction protocol</b></p>
 <p>
-<%=
-ret.EXPERIMENT[0].DESIGN[0].LIBRARY_DESCRIPTOR[0].LIBRARY_CONSTRUCTION_PROTOCOL %>
+<% var description = ret.EXPERIMENT[0].DESIGN[0].LIBRARY_DESCRIPTOR[0].LIBRARY_CONSTRUCTION_PROTOCOL %>
 </p>
 
 
+<!-------------- PROJECT CONFIG ----------------------->
+<h3>project.config</h3>
+<pre style="white-space:pre-wrap;"><code class="language-yaml">#YAML
+
+PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/<%=  PMID %>" target="_blank"><%= PMID %></a>
+
+readme:  <%= ret.STUDY[0].DESCRIPTOR[0].STUDY_ABSTRACT[0] %>
+
+shortLabel: Decato 2017
+
+longLabel: <%= ret.STUDY[0].DESCRIPTOR[0].STUDY_TITLE[0] %>
+
+processedBy: Smith Lab
+
+methods: Special methods were used to map whole placenta data in this trackset to the most accurate reference genomes, and then map them back to mm10 for comparison to other samples in MethBase. For more information, <a href="http://www.smithlabresearch.org/data-resource-page-dna-methylation-divergence-and-tissue-specialization-in-the-developing-mouse-placenta">please visit our data access page</a>.
+
+Samples:
+<% for (var i = 0; i < srrs.length; ++i) { %>
+  <%= srrs[i] %>:
+    path: /labdata/methylome/public/<%= project_name %>/<%= srrs[i] %>
+    Organism: <%= organism %>
+    Description: <%= description %>
+    Strategy: WGBS
+    CellTypeTrack: False
+    ReferenceTrack: False
+<% } %>
+</code>
+</pre>
+
+
+<!---------------- SRR URLS ----------------->
 <h3> SRR URLs </h3>
 <pre><code class="language-bash"><% srr_urls.forEach((url) => { %><a href="<%= url %>" target="_blank"><%= url  %></a>
 <% }); %></code></pre>
-<h3>project.config</h3>
 
 <script>hljs.initHighlightingOnLoad();</script>
 <%- include('./partials/footer.ejs') %>
