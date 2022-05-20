@@ -1,5 +1,5 @@
 <%- include('./partials/header.ejs') %>
-Number of entries: <b><%= search.Count %></b><br />
+Number of entries: <b><%= total_hits %></b><br />
 Number of pages: <b><%= num_pages %></b><br />
 
 <br /><br />
@@ -16,7 +16,7 @@ Number of pages: <b><%= num_pages %></b><br />
   <% } %>
 
   <% var the_start = Math.max(the_page - 10, 0); %>
-  <% var the_end = Math.min(the_start + 20, num_pages); %>
+  <% var the_end = Math.min(the_start + 20, num_pages + 1); %>
   <% for (var i = the_start; i < the_end; ++i) { %>
     <% if (i == the_page) { %>
       <li class="page-item active"><a class="page-link"  href="#"><%= i %></a></li>
@@ -46,7 +46,6 @@ cellspacing="0" width="100%" id="geoDatasets">
     <th class="th-sm" style="cursor:pointer;" scope="col">species</th>
   </thead>
   <tbody>
-    <% var the_ids = search.IdList[0].Id %>
     <% for (var i = 0; i < fetch.length; ++i) { %>
       <tr>
         <!-- ID  -->

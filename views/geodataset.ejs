@@ -2,10 +2,19 @@
 <h3>Query results for <%= id %></h3>
 
 <br /><br />
-<%= ret.EXPERIMENT[0].TITLE %>
-<br /><br />
+<h2><%= ret.EXPERIMENT[0].TITLE %></h2>
+
+<p><b>Library construction protocol</b></p>
+<p>
 <%=
 ret.EXPERIMENT[0].DESIGN[0].LIBRARY_DESCRIPTOR[0].LIBRARY_CONSTRUCTION_PROTOCOL %>
+</p>
 
 
+<h3> SRR URLs </h3>
+<pre><code class="language-bash"><% srr_urls.forEach((url) => { %><a href="<%= url %>" target="_blank"><%= url  %></a>
+<% }); %></code></pre>
+<h3>project.config</h3>
+
+<script>hljs.initHighlightingOnLoad();</script>
 <%- include('./partials/footer.ejs') %>
