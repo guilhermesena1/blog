@@ -1,9 +1,12 @@
-# NodeJS blog
+# DNA methylation projects
 
-A simple NodeJS blog that connects to MongoDB and displays data on a
-webpage. To install, run
+This is a Web UI to fetch data from NCBI and retrieve lists of SRA files for posterior computational analysis.
+
+To view the datasets, simply run
 
 ```
 $ npm install
 $ npm start
 ```
+
+This will create a page in `localhost:3000`
